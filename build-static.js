@@ -3,9 +3,29 @@ const path = require("path");
 
 console.log("🔧 Building static version for GitHub Pages...");
 
+// Ensure we're in the right directory
+const currentDir = process.cwd();
+console.log("📁 Current directory:", currentDir);
+
 // Read the current index.html
 const indexPath = path.join(__dirname, "public", "index.html");
-const indexContent = fs.readFileSync(indexPath, "utf8");
+console.log("📄 Reading index.html from:", indexPath);
+
+let indexContent;
+try {
+  indexContent = fs.readFileSync(indexPath, "utf8");
+  console.log("✅ Successfully read index.html");
+} catch (error) {
+  console.error("❌ Error reading index.html:", error.message);
+  console.log("📁 Available files in public directory:");
+  try {
+    const publicFiles = fs.readdirSync(path.join(__dirname, "public"));
+    console.log(publicFiles);
+  } catch (e) {
+    console.error("❌ Cannot read public directory:", e.message);
+  }
+  process.exit(1);
+}
 
 // Create a modified version that includes the template configurations inline
 const templateConfigs = {
