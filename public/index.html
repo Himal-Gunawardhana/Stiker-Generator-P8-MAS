@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peshi Sticker Creator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🏷️ Peshi Sticker Creator</h1>
+        <p>Create professional stickers with custom templates and Excel data</p>
+      </header>
+
+      <main>
+        <!-- Template Selection Section -->
+        <section id="templateSection" class="section">
+          <h2>Step 1: Choose Template Type</h2>
+
+          <div class="template-options">
+            <div class="template-option-card active" data-mode="preset">
+              <h3>📋 Preset Templates</h3>
+              <p>Choose from pre-designed country templates</p>
+            </div>
+
+            <div class="template-option-card" data-mode="custom">
+              <h3>🎨 Custom Template</h3>
+              <p>Upload your own template and define positions</p>
+            </div>
+          </div>
+
+          <!-- Preset Templates -->
+          <div id="presetTemplates" class="template-content active">
+            <div class="template-grid">
+              <div class="template-card" data-country="usa">
+                <div class="template-preview">
+                  <div class="country-flag usa">🇺🇸</div>
+                  <h4>USA Standard</h4>
+                </div>
+              </div>
+              <div class="template-card" data-country="uk">
+                <div class="template-preview">
+                  <div class="country-flag uk">🇬🇧</div>
+                  <h4>UK Standard</h4>
+                </div>
+              </div>
+              <div class="template-card" data-country="canada">
+                <div class="template-preview">
+                  <div class="country-flag canada">🇨🇦</div>
+                  <h4>Canada Standard</h4>
+                </div>
+              </div>
+              <div class="template-card" data-country="australia">
+                <div class="template-preview">
+                  <div class="country-flag australia">🇦🇺</div>
+                  <h4>Australia Standard</h4>
+                </div>
+              </div>
+              <div class="template-card" data-country="germany">
+                <div class="template-preview">
+                  <div class="country-flag germany">🇩🇪</div>
+                  <h4>Germany Standard</h4>
+                </div>
+              </div>
+              <div class="template-card" data-country="france">
+                <div class="template-preview">
+                  <div class="country-flag france">🇫🇷</div>
+                  <h4>France Standard</h4>
+                </div>
+              </div>
+              <div class="template-card" data-country="japan">
+                <div class="template-preview">
+                  <div class="country-flag japan">🇯🇵</div>
+                  <h4>Japan Standard</h4>
+                </div>
+              </div>
+              <div class="template-card" data-country="india">
+                <div class="template-preview">
+                  <div class="country-flag india">🇮🇳</div>
+                  <h4>India Standard</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Custom Template Editor -->
+          <div id="customTemplates" class="template-content">
+            <div class="custom-upload-area">
+              <div class="upload-box">
+                <input
+                  type="file"
+                  id="templateUpload"
+                  accept="image/*"
+                  hidden
+                />
+                <label for="templateUpload" class="upload-label">
+                  <div class="upload-icon">📷</div>
+                  <div class="upload-text">
+                    <h4>Upload Template Image</h4>
+                    <p>Click to select an image file (PNG, JPG, GIF)</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div id="customTemplateEditor" class="custom-editor">
+              <div class="editor-header">
+                <h3>Template Editor</h3>
+                <p>Click on the template to add data fields</p>
+              </div>
+
+              <div class="editor-content">
+                <div class="canvas-container">
+                  <canvas id="templateCanvas"></canvas>
+                  <div id="positionMarkers"></div>
+                </div>
+
+                <div class="editor-controls">
+                  <div class="control-group">
+                    <label for="elementTypeSelect">Element Type:</label>
+                    <select id="elementTypeSelect">
+                      <option value="text">Text Field</option>
+                      <option value="color">Color Block</option>
+                    </select>
+                  </div>
+
+                  <div class="control-group" id="elementNameGroup">
+                    <label for="elementName">Column Name:</label>
+                    <input
+                      type="text"
+                      id="elementName"
+                      placeholder="e.g., name, code, title"
+                    />
+                  </div>
+
+                  <!-- Text Controls -->
+                  <div id="textControls" class="control-section">
+                    <div class="control-group">
+                      <label for="fontSize">Font Size:</label>
+                      <input
+                        type="number"
+                        id="fontSize"
+                        value="18"
+                        min="8"
+                        max="72"
+                      />
+                    </div>
+                    <div class="control-group">
+                      <label for="textColor">Text Color:</label>
+                      <input type="color" id="textColor" value="#000000" />
+                    </div>
+                    <div class="control-group">
+                      <label for="textAlign">Alignment:</label>
+                      <select id="textAlign">
+                        <option value="left">Left</option>
+                        <option value="center">Center</option>
+                        <option value="right">Right</option>
+                      </select>
+                    </div>
+                    <div class="control-group">
+                      <label for="fontFamily">Font Family:</label>
+                      <select id="fontFamily">
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="'Times New Roman', serif">
+                          Times New Roman
+                        </option>
+                        <option value="'Courier New', monospace">
+                          Courier New
+                        </option>
+                        <option value="Helvetica, sans-serif">Helvetica</option>
+                        <option value="Georgia, serif">Georgia</option>
+                        <option value="Verdana, sans-serif">Verdana</option>
+                        <option value="'Comic Sans MS', cursive">
+                          Comic Sans MS
+                        </option>
+                        <option value="Impact, sans-serif">Impact</option>
+                      </select>
+                    </div>
+                    <div class="control-group">
+                      <label for="fontWeight">Font Weight:</label>
+                      <select id="fontWeight">
+                        <option value="normal">Normal</option>
+                        <option value="bold">Bold</option>
+                        <option value="lighter">Light</option>
+                        <option value="bolder">Extra Bold</option>
+                      </select>
+                    </div>
+                    <div class="control-group">
+                      <label for="fontStyle">Font Style:</label>
+                      <select id="fontStyle">
+                        <option value="normal">Normal</option>
+                        <option value="italic">Italic</option>
+                        <option value="oblique">Oblique</option>
+                      </select>
+                    </div>
+                    <div class="control-group">
+                      <label for="textDecoration">Text Decoration:</label>
+                      <select id="textDecoration">
+                        <option value="none">None</option>
+                        <option value="underline">Underline</option>
+                        <option value="overline">Overline</option>
+                        <option value="line-through">Strikethrough</option>
+                      </select>
+                    </div>
+                    <div class="control-group">
+                      <label for="letterSpacing">Letter Spacing:</label>
+                      <input
+                        type="range"
+                        id="letterSpacing"
+                        min="-2"
+                        max="5"
+                        value="0"
+                        step="0.5"
+                      />
+                      <span id="letterSpacingValue">0px</span>
+                    </div>
+                    <div class="control-group">
+                      <label for="lineHeight">Line Height:</label>
+                      <input
+                        type="range"
+                        id="lineHeight"
+                        min="0.8"
+                        max="2.0"
+                        value="1.2"
+                        step="0.1"
+                      />
+                      <span id="lineHeightValue">1.2</span>
+                    </div>
+                    <div class="control-group">
+                      <label for="textShadow">Text Shadow:</label>
+                      <select id="textShadow">
+                        <option value="none">None</option>
+                        <option value="1px 1px 2px rgba(0,0,0,0.3)">
+                          Light Shadow
+                        </option>
+                        <option value="2px 2px 4px rgba(0,0,0,0.5)">
+                          Medium Shadow
+                        </option>
+                        <option value="3px 3px 6px rgba(0,0,0,0.7)">
+                          Heavy Shadow
+                        </option>
+                        <option value="0px 0px 3px rgba(255,255,255,0.8)">
+                          White Glow
+                        </option>
+                        <option value="0px 0px 5px rgba(0,0,0,1)">
+                          Black Glow
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Color Controls -->
+                  <div
+                    id="colorControls"
+                    class="control-section"
+                    style="display: none"
+                  >
+                    <div class="control-group">
+                      <label for="colorWidth">Width:</label>
+                      <input
+                        type="number"
+                        id="colorWidth"
+                        value="50"
+                        min="10"
+                        max="200"
+                      />
+                    </div>
+                    <div class="control-group">
+                      <label for="colorHeight">Height:</label>
+                      <input
+                        type="number"
+                        id="colorHeight"
+                        value="30"
+                        min="10"
+                        max="100"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="template-size-controls">
+                    <h4>
+                      Template Size
+                      <small style="color: #718096"
+                        >(auto-detected from image)</small
+                      >
+                    </h4>
+                    <div class="control-group">
+                      <label for="templateWidth">Width (px):</label>
+                      <input
+                        type="number"
+                        id="templateWidth"
+                        value="400"
+                        min="100"
+                        max="1000"
+                        title="Automatically detected from uploaded image"
+                      />
+                    </div>
+                    <div class="control-group">
+                      <label for="templateHeight">Height (px):</label>
+                      <input
+                        type="number"
+                        id="templateHeight"
+                        value="300"
+                        min="100"
+                        max="800"
+                        title="Automatically detected from uploaded image"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="positions-list">
+                <h4>Added Positions:</h4>
+                <div id="positionsList"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Excel Upload Section -->
+        <section id="excelSection" class="section">
+          <h2>Step 2: Upload Excel Data</h2>
+          <div class="upload-area">
+            <input type="file" id="excelUpload" accept=".xlsx,.xls" hidden />
+            <label for="excelUpload" class="upload-label">
+              <div class="upload-content">
+                <div class="upload-icon">📊</div>
+                <div class="upload-text">
+                  <h4>Upload Excel File</h4>
+                  <p>Click to select your Excel file (.xlsx or .xls)</p>
+                </div>
+              </div>
+            </label>
+          </div>
+          <div id="excelPreview" class="data-preview"></div>
+        </section>
+
+        <!-- Column Mapping Section -->
+        <section id="mappingSection" class="section" style="display: none">
+          <h2>Step 3: Map Columns</h2>
+          <p>Map your Excel columns to template positions:</p>
+          <div id="columnMapping" class="mapping-grid"></div>
+        </section>
+
+        <!-- Configuration Section -->
+        <section id="configSection" class="section">
+          <h2>Step 3: Configure Output</h2>
+          <div class="config-grid">
+            <div class="config-group">
+              <label for="stickerName">Sticker Name:</label>
+              <input
+                type="text"
+                id="stickerName"
+                placeholder="Enter sticker name"
+              />
+            </div>
+            <div class="config-group">
+              <label for="outputFormat">Output Format:</label>
+              <select id="outputFormat">
+                <option value="PNG">PNG Image</option>
+                <option value="PDF">PDF Document</option>
+                <option value="SVG">SVG Vector</option>
+              </select>
+            </div>
+            <div class="config-group">
+              <label for="stickerSize">Sticker Size:</label>
+              <select id="stickerSize">
+                <option value="small">Small (70%)</option>
+                <option value="medium">Medium (100%)</option>
+                <option value="large">Large (130%)</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- Generate Section -->
+        <section id="generateSection" class="section">
+          <button id="generateBtn" class="generate-btn" disabled>
+            <span class="btn-text">Generate Stickers</span>
+            <div class="btn-loader" style="display: none">
+              <div class="spinner"></div>
+            </div>
+          </button>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="section" style="display: none">
+          <h2>Generated Stickers</h2>
+          <div id="resultsGrid" class="results-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
