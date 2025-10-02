@@ -13,6 +13,50 @@ body {
   min-height: 100vh;
 }
 
+/* GitHub Pages Notice */
+.github-pages-notice {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+  border-left: 5px solid #ff6b6b;
+  padding: 15px 20px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1000;
+}
+
+.github-pages-notice .notice-content h3 {
+  color: #2d3748;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.github-pages-notice .notice-content p {
+  color: #4a5568;
+  margin-bottom: 8px;
+}
+
+.github-pages-notice .notice-content ul {
+  margin: 10px 0;
+  padding-left: 20px;
+  color: #4a5568;
+}
+
+.github-pages-notice .notice-content ul li {
+  margin-bottom: 5px;
+}
+
+.github-pages-notice .notice-content a {
+  color: #3182ce;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.github-pages-notice .notice-content a:hover {
+  color: #2c5aa0;
+  text-decoration: underline;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;

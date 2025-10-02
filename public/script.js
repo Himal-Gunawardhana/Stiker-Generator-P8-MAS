@@ -11,7 +11,16 @@ class StickerCreator {
     };
     this.columnMapping = {};
 
+    // Check if running on GitHub Pages
+    this.isGitHubPages = window.GITHUB_PAGES || false;
+    this.templateConfigs = window.TEMPLATE_CONFIGS || {};
+
     this.initializeEventListeners();
+
+    // Show GitHub Pages notice if applicable
+    if (this.isGitHubPages) {
+      this.showGitHubPagesNotice();
+    }
   }
 
   initializeEventListeners() {
@@ -632,6 +641,45 @@ class StickerCreator {
         successDiv.remove();
       }
     }, 3000);
+  }
+
+  showGitHubPagesNotice() {
+    const notice = document.createElement("div");
+    notice.className = "github-pages-notice";
+    notice.innerHTML = `
+      <div class="notice-content">
+        <h3>📍 GitHub Pages Version</h3>
+        <p>You're viewing a limited static version. Some features require a server:</p>
+        <ul>
+          <li>❌ Excel file processing</li>
+          <li>❌ Bulk sticker generation</li>
+          <li>✅ Template preview and manual creation</li>
+          <li>✅ Custom template positioning</li>
+        </ul>
+        <p><strong>For full functionality:</strong> Deploy to 
+          <a href="https://vercel.com/import/project?template=https://github.com/Himal-Gunawardhana/Stiker-Generator-P8-MAS" target="_blank">Vercel</a>, 
+          <a href="https://railway.app" target="_blank">Railway</a>, or 
+          <a href="https://render.com" target="_blank">Render</a>
+        </p>
+      </div>
+    `;
+
+    document.body.insertBefore(notice, document.body.firstChild);
+  }
+
+  // Static version methods for GitHub Pages
+  loadTemplateStatic(country) {
+    if (!this.templateConfigs[country]) {
+      console.error("Template not found:", country);
+      return;
+    }
+
+    // Use inline template configuration instead of API call
+    const config = this.templateConfigs[country];
+    console.log("Loaded template config:", config);
+
+    // Continue with template loading logic...
+    this.currentTemplateConfig = config;
   }
 }
 

@@ -93,7 +93,22 @@ Example:
 
 ## 🌐 Deployment
 
-### Deploy to Vercel (Recommended)
+### Deploy to GitHub Pages (Static Version)
+
+1. **Enable GitHub Pages**:
+
+   - Go to your repository settings
+   - Scroll to "Pages" section
+   - Select "GitHub Actions" as source
+
+2. **Automatic Deployment**:
+   - Push changes to main branch
+   - GitHub Actions will build and deploy automatically
+   - Access your app at: `https://your-username.github.io/Stiker-Generator-P8-MAS`
+
+⚠️ **Note**: GitHub Pages version has limited functionality (no server-side features)
+
+### Deploy to Vercel (Full Features - Recommended)
 
 1. Install Vercel CLI:
 
